@@ -11,13 +11,15 @@
         android:id="@+id/profileImage"
         android:layout_width="96dp"
         android:layout_height="96dp"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="92dp"
         android:src="@drawable/profile"
         app:civ_border_color="@color/white"
         app:civ_border_width="2dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/addImage"
         android:layout_width="20dp"
@@ -64,13 +66,14 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:inputType="textEmailAddress"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textFieldPassword"
+        android:id="@+id/password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -95,9 +98,9 @@
         android:layout_marginTop="16dp"
         android:text="@string/register"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/textFieldPassword"
-        app:layout_constraintStart_toStartOf="@+id/textFieldPassword"
-        app:layout_constraintTop_toBottomOf="@+id/textFieldPassword" />
+        app:layout_constraintEnd_toEndOf="@+id/password"
+        app:layout_constraintStart_toStartOf="@+id/password"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <TextView
         android:id="@+id/login"
