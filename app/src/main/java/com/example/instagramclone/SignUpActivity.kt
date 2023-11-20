@@ -1,9 +1,11 @@
 package com.example.instagramclone
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import android.text.Html
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import com.example.instagramclone.databinding.ActivitySignUpBinding
 import com.example.instagramclone.models.User
 import com.example.instagramclone.util.USER_NODE
@@ -13,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+
 
 class SignUpActivity : AppCompatActivity() {
     private val binding by lazy {
@@ -35,6 +38,8 @@ class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        val text = "<font color=#FF000000>Already have an account?</font> <font color=#1E88E5>Login </font>"
+        binding.login.text = Html.fromHtml(text)
 
         binding.SignUpButton.setOnClickListener {
             if((binding.name.editText?.text.toString() == "") or
@@ -49,25 +54,30 @@ class SignUpActivity : AppCompatActivity() {
                 ).addOnCompleteListener {
                     result->
                     if(result.isSuccessful){
-                        user.apply {
-                            name = binding.name.editText?.text.toString()
-                            email = binding.email.editText?.text.toString()
-                            password = binding.password.editText?.text.toString()
-                        }
-                        Firebase.firestore.collection(USER_NODE)
-                            .document(Firebase.auth.currentUser!!.uid).set(user)
-                            .addOnSuccessListener {
-                                Toast.makeText(this@SignUpActivity, "Login Successfully", Toast.LENGTH_SHORT).show()
+
+                                user.apply {
+                                    name = binding.name.editText?.text.toString()
+                                    email = binding.email.editText?.text.toString()
+                                    password = binding.password.editText?.text.toString()
+                                }
+                                Firebase.firestore.collection(USER_NODE)
+                                    .document(Firebase.auth.currentUser!!.uid).set(user)
+                                    .addOnSuccessListener {
+                                        startActivity(Intent(this@SignUpActivity, HomeActivity::class.java))
+                                        finish()
                             }
                     }else{
                         Toast.makeText(this@SignUpActivity, result.exception?.localizedMessage, Toast.LENGTH_SHORT).show()
-
                     }
                 }
             }
         }
         binding.addImage.setOnClickListener {
             launcher.launch("image/*")
+        }
+        binding.login.setOnClickListener {
+            startActivity(Intent(this@SignUpActivity, LoginActivity::class.java))
+            finish()
         }
     }
 }
