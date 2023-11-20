@@ -17,6 +17,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 
+
 class SignUpActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivitySignUpBinding.inflate(layoutInflater)
@@ -26,9 +27,7 @@ class SignUpActivity : AppCompatActivity() {
         uri->
         uri?.let {
             uploadImage(uri, USER_PROFILE_FOLDER){
-                if(it==null){
-
-                }else{
+                if(it!=null){
                     user.image = it
                     binding.profileImage.setImageURI(uri)
                 }
@@ -39,6 +38,7 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         val text = "<font color=#FF000000>Already have an account?</font> <font color=#1E88E5>Login </font>"
+        @Suppress("DEPRECATION")
         binding.login.text = Html.fromHtml(text)
 
         binding.SignUpButton.setOnClickListener {
